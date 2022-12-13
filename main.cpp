@@ -21,7 +21,8 @@ int main(int argc, char* argv[]){
             judge.save(out_path);
         }
     }else{
-        cout<<"Unknown directory.\n";
+        cerr<<"Unknown directory.\n";
+        return 1;
     }
     return 0;
 }
