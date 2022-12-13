@@ -21,8 +21,8 @@ class JudgeModule{
     std::string exe2{};
     std::string format{};
     std::vector<var> input1{};
-    std::vector<var> input_gen(int k);
     public:
+    std::vector<var> input_gen(int k);
     JudgeModule(std::string &e1,std::string &e2,std::string &f){
         exe1 = e1;
         exe2 = e2;
@@ -47,8 +47,8 @@ std::vector<var> JudgeModule::input_gen(int k){
             while(format[j] != ')')j++;
             sup = stoi(format.substr(i+1,j));
             int randint = (rand() % (sup-inf+1))+inf;
-            if(k>1&&gened_input.size()==k-1){
-                while(randint == input1[k-1].val.i)randint = (rand() % (sup-inf+1))+inf;
+            if(k>1&&gened_input.size()==k-2){
+                while(randint == input1[k-2].val.i)randint = (rand() % (sup-inf+1))+inf;
             }
             v.tp = INT;
             v.val.i = randint;
@@ -56,10 +56,10 @@ std::vector<var> JudgeModule::input_gen(int k){
         }else if(format[i] == 'c'){
             i += 4;
             int randchar = 1;
-            while(!(64<randchar&&randchar<91||96<randchar&&randchar<123))randchar = (rand() % (122-65+1))+65;
-            if(k>1&&gened_input.size()==k-1){
-                while (randchar == input1[k-1].val.c&&!(64<randchar&&randchar<91||96<randchar&&randchar<123)){
-                    randchar = (rand() % (122-65+1))+65;
+            while(!((int)'a'<=randchar&&randchar<=(int)'z'||(int)'A'<=randchar&&randchar<=(int)'Z'))randchar = (rand() % ('z'-'A'+1))+'A';
+            if(k>1&&gened_input.size()==k-2){
+                while (randchar == input1[k-2].val.c&&!((int)'a'<=randchar&&randchar<=(int)'z'||(int)'A'<=randchar&&randchar<=(int)'Z')){
+                    randchar = (rand() % ('z'-'A'+1))+'A';
                 }
             }
             v.tp=CHAR;
@@ -80,14 +80,14 @@ std::vector<var> JudgeModule::input_gen(int k){
             str[randlen] = '\0';
             for(int l = 0;l<randlen;l++){
                 int randchar = 1;
-                while(!((int)'a'<=randchar&&randchar<=(int)'z'||(int)'A'<=randchar&&randchar<=(int)'Z'))randchar = (rand() % (122-65+1))+65;
+                while(!((int)'a'<=randchar&&randchar<=(int)'z'||(int)'A'<=randchar&&randchar<=(int)'Z'))randchar = (rand() % ('z'-'A'+1))+'A';
                 str[l]=(char)randchar;
             }
-            if(k>1&&gened_input.size()==k-1){
-                while (strcmp(input1[k-1].val.s,str)==0){
+            if(k>1&&gened_input.size()==k-2){
+                while (strcmp(input1[k-2].val.s,str)==0){
                     for(int l = 0;l<randlen;l++){
                     int randchar = 1;
-                    while(!(64<randchar&&randchar<91||96<randchar&&randchar<123))randchar = (rand() % (122-65+1))+65;
+                    while(!((int)'a'<=randchar&&randchar<=(int)'z'||(int)'A'<=randchar&&randchar<=(int)'Z'))randchar = (rand() % ('z'-'A'+1))+'A';
                         str[l]=(char)randchar;
                     }
                 }  
@@ -106,17 +106,17 @@ bool JudgeModule::compare(){
     bool eq = true;
     int inputnum = std::count(format.begin(),format.end(),' ')+1;
     system("touch in out1 out2");
-    for(int k=1;k<=inputnum&&eq==true;k++){
+    for(int k=1;k<=inputnum+1&&eq==true;k++){
         std::vector<var> in = input_gen(k);
         std::string ip="";
         
         for(int r=0;r<inputnum;r++){
             if(in[r].tp==INT){
-                ip=ip+std::to_string(in[r].val.i)+" ";
+                ip=ip+std::to_string(in[r].val.i)+"\n";
             }else if(in[r].tp==CHAR){
-                ip = ip +in[r].val.c+" ";
+                ip = ip +in[r].val.c+"\n";
             }else if(in[r].tp=STRING){
-                ip = ip +std::string(in[r].val.s)+" ";
+                ip = ip +std::string(in[r].val.s)+"\n";
             }
         }
         ip[ip.length()-1] ='\n';

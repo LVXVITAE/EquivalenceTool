@@ -1,0 +1,1 @@
+int(1,100) char string(1,20)

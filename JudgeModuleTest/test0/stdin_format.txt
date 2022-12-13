@@ -1,0 +1,8 @@
+int(1,10)
+char
+string(3,6)
+int(1,10) char
+int(1,10) string(3,6)
+int(1,10) char string(3,6)
+char int(1,10) string(3,6)
+string(3,6) char int(1,10) 
