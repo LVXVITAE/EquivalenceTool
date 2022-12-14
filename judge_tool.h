@@ -20,10 +20,18 @@ class JudgeTool{
         parent[rt]=rs;
     }
     public:
+    JudgeTool(){};
     JudgeTool(std::string &dir_path);
-    ~JudgeTool();
+    ~JudgeTool(){};
     void get_equivalence();
-    void save(std::string &output_dir);
+    void save(std::string output_dir);
+    std::string &get_dir(){return dir;}
+    std::string &get_format(){return format;}
+    std::vector<std::string> &get_srcs(){return srcs;}
+    std::vector<std::string> &get_exes(){return exes;}
+    bool equal(int s,int t){
+        return Find(s)==Find(t);
+    }
 };
 JudgeTool::JudgeTool(std::string &dir_path){
     dir = dir_path;
@@ -35,6 +43,7 @@ JudgeTool::JudgeTool(std::string &dir_path){
     for(int i = 0;i<parent.size();i++)
     parent[i]=i;
 }
+/*
 JudgeTool::~JudgeTool(){
     for(auto exe : std::filesystem::directory_iterator(dir)){
         if((exe.path().string()).ends_with(".exe")){
@@ -42,11 +51,12 @@ JudgeTool::~JudgeTool(){
         }
     }
 }
+*/
 void JudgeTool::get_equivalence(){
 
     for(int i = 0;i<parent.size()-1;i++){
         for(int j = i+1; j<parent.size();j++){
-            if(Find(i)!=Find(j)&&exes[i]!="Fail to compile"&&exes[j]!="Fail to compile"){
+            if(!equal(i,j)&&exes[i]!="Fail to compile"&&exes[j]!="Fail to compile"){
                 JudgeModule jud = JudgeModule(exes[i],exes[j],format);
                 bool equi = jud.compare();
                 if(equi)Union(i,j);
@@ -55,7 +65,7 @@ void JudgeTool::get_equivalence(){
     }
 
 }
-void JudgeTool::save(std::string &output_dir){
+void JudgeTool::save(std::string output_dir){
     if(parent.size()>1){
         std::ofstream eq(output_dir+"/equal.csv",std::ofstream::app),ineq(output_dir+"/inequal.csv",std::ofstream::app);
         for(int i = 0;i<parent.size()-1;i++){

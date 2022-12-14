@@ -15,9 +15,10 @@ class InputModule{
     void compile();
     public:
     InputModule(std::string &dir_name);
-    std::vector<std::string> &get_srcs(){return srcs;};
-    std::vector<std::string> &get_exes(){return exes;};
-    std::string &get_format(){return format;};
+    InputModule(){}
+    std::vector<std::string> &get_srcs(){return srcs;}
+    std::vector<std::string> &get_exes(){return exes;}
+    std::string &get_format(){return format;}
 };
 
 InputModule::InputModule(std::string &dir_name){

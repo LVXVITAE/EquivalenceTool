@@ -15,10 +15,10 @@ int main(int argc, char* argv[]){
         ineq<<"file1,file2\n";
         eq.close();ineq.close();
         for(auto dir : filesystem::directory_iterator(input_dir)){//./input/dir
-            string dir_path = dir.path().string(),out_path=output_dir.string();
+            string dir_path = dir.path().string();
             JudgeTool judge=JudgeTool(dir_path);
             judge.get_equivalence();
-            judge.save(out_path);
+            judge.save(output_dir.string());
         }
     }else{
         cerr<<"Unknown directory.\n";

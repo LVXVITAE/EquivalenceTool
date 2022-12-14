@@ -1,0 +1,9 @@
+file1,file2
+JudgeToolTest/input/test2/print1.cpp,JudgeToolTest/input/test2/print2.cpp
+JudgeToolTest/input/test3/add1.cpp,JudgeToolTest/input/test3/add2.cpp
+JudgeToolTest/input/test1/cont2.cpp,JudgeToolTest/input/test1/t1.cpp
+JudgeToolTest/input/test1/cont2.cpp,JudgeToolTest/input/test1/t3.c
+JudgeToolTest/input/test1/cont2.cpp,JudgeToolTest/input/test1/cont1.cpp
+JudgeToolTest/input/test1/t1.cpp,JudgeToolTest/input/test1/t3.c
+JudgeToolTest/input/test1/t1.cpp,JudgeToolTest/input/test1/cont1.cpp
+JudgeToolTest/input/test1/t3.c,JudgeToolTest/input/test1/cont1.cpp

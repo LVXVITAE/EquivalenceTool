@@ -1,4 +1,3 @@
-#include<iostream>
 #include<string>
 using namespace std;
 int main(){
@@ -6,6 +5,6 @@ int main(){
     char c;
     string s;
     cin>>i>>c>>s;
-    cout<<i<<' '<<c<<' '<<s<<endl;
+    cout<<i<<c<<s<<endl;
     return 0;
 }

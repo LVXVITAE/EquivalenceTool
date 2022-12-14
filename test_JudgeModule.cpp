@@ -59,123 +59,139 @@ void compile(std::filesystem::path &test_dir){
     }
 }
 namespace{
-    TEST(TestInputGen,test0){
-        std::string exe1="dummy1",exe2="dummy1";
-        std::string format;
-        std::ifstream f("JudgeModuleTest/test0/stdin_format.txt");
-        int i=1;
-        while(std::getline(f,format)&&i<9){
-            JudgeModule J(exe1,exe2,format);
+    class TestInputGen : public ::testing::Test{
+        protected:
+        std::string exe1="dummy1";
+        std::string exe2="dummy2";
+        std::vector<std::string> line{};
+        TestInputGen(){
+            std::string format;
+            std::ifstream f("JudgeModuleTest/test0/stdin_format.txt");
             
-            if(i==1){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_int(new_input1[0]);
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_int(new_input2[0]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-            }else if (i==2){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_char(new_input1[0]);
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_char(new_input2[0]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-            }else if (i==3){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_string(new_input1[0]);
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_string(new_input2[0]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-            }else if (i==4){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_int(new_input1[0]);
-                check_char(new_input1[1]);
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_int(new_input2[0]);
-                check_char(new_input2[1]);
-                std::vector<var> new_input3 = J.input_gen(3);
-                check_int(new_input3[0]);
-                check_char(new_input3[1]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-                EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
-            }else if (i==5){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_int(new_input1[0]);
-                check_string(new_input1[1]);
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_int(new_input2[0]);
-                check_string(new_input2[1]);
-                std::vector<var> new_input3 = J.input_gen(3);
-                check_int(new_input3[0]);
-                check_string(new_input3[1]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-                EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
-            }else if (i==6){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_int(new_input1[0]);
-                check_char(new_input1[1]);
-                check_string(new_input1[2]);
-
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_int(new_input2[0]);
-                check_char(new_input2[1]);
-                check_string(new_input2[2]);
-
-                std::vector<var> new_input3 = J.input_gen(3);
-                check_int(new_input3[0]);
-                check_char(new_input3[1]);
-                check_string(new_input3[2]);
-
-                std::vector<var> new_input4 = J.input_gen(4);
-                check_int(new_input4[0]);
-                check_char(new_input4[1]);
-                check_string(new_input4[2]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-                EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
-                EXPECT_FALSE(cmp(new_input1[2],new_input4[2]));
-            }else if (i==7){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_char(new_input1[0]);
-                check_int(new_input1[1]);
-                check_string(new_input1[2]);
-
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_char(new_input2[0]);
-                check_int(new_input2[1]);
-                check_string(new_input2[2]);
-                std::vector<var> new_input3 = J.input_gen(3);
-                check_char(new_input3[0]);
-                check_int(new_input3[1]);
-                check_string(new_input3[2]);
-                std::vector<var> new_input4 = J.input_gen(4);
-                check_char(new_input4[0]);
-                check_int(new_input4[1]);
-                check_string(new_input4[2]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-                EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
-                EXPECT_FALSE(cmp(new_input1[2],new_input4[2]));
-            }else if (i==8){
-                std::vector<var> new_input1 = J.input_gen(1);
-                check_string(new_input1[0]);
-                check_char(new_input1[1]);
-                check_int(new_input1[2]);
-                std::vector<var> new_input2 = J.input_gen(2);
-                check_string(new_input2[0]);
-                check_char(new_input2[1]);
-                check_int(new_input2[2]);
-                std::vector<var> new_input3 = J.input_gen(3);
-                check_string(new_input3[0]);
-                check_char(new_input3[1]);
-                check_int(new_input3[2]);
-                std::vector<var> new_input4 = J.input_gen(4);
-                check_string(new_input4[0]);
-                check_char(new_input4[1]);
-                check_int(new_input4[2]);
-                EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
-                EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
-                EXPECT_FALSE(cmp(new_input1[2],new_input4[2]));
-            }            
-            i++;
+            while(std::getline(f,format)){
+                line.push_back(format);
+            }
         }
+    };
+    TEST_F(TestInputGen,test00){
+        JudgeModule J(exe1,exe2,line[0]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_int(new_input1[0]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_int(new_input2[0]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+    }
+    TEST_F(TestInputGen,test01){
+        JudgeModule J(exe1,exe2,line[1]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_char(new_input1[0]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_char(new_input2[0]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+    }
+    TEST_F(TestInputGen,test02){
+        JudgeModule J(exe1,exe2,line[2]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_string(new_input1[0]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_string(new_input2[0]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+    }
+    TEST_F(TestInputGen,test03){
+        JudgeModule J(exe1,exe2,line[3]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_int(new_input1[0]);
+        check_char(new_input1[1]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_int(new_input2[0]);
+        check_char(new_input2[1]);
+        std::vector<var> new_input3 = J.input_gen(3);
+        check_int(new_input3[0]);
+        check_char(new_input3[1]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+        EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
+    }
+    TEST_F(TestInputGen,test04){
+        JudgeModule J(exe1,exe2,line[4]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_int(new_input1[0]);
+        check_string(new_input1[1]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_int(new_input2[0]);
+        check_string(new_input2[1]);
+        std::vector<var> new_input3 = J.input_gen(3);
+        check_int(new_input3[0]);
+        check_string(new_input3[1]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+        EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
+    }
+    TEST_F(TestInputGen,test05){
+        JudgeModule J(exe1,exe2,line[5]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_int(new_input1[0]);
+        check_char(new_input1[1]);
+        check_string(new_input1[2]);
+
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_int(new_input2[0]);
+        check_char(new_input2[1]);
+        check_string(new_input2[2]);
+
+        std::vector<var> new_input3 = J.input_gen(3);
+        check_int(new_input3[0]);
+        check_char(new_input3[1]);
+        check_string(new_input3[2]);
+        std::vector<var> new_input4 = J.input_gen(4);
+        check_int(new_input4[0]);
+        check_char(new_input4[1]);
+        check_string(new_input4[2]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+        EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
+        EXPECT_FALSE(cmp(new_input1[2],new_input4[2]));
+    }
+    TEST_F(TestInputGen,test06){
+        JudgeModule J(exe1,exe2,line[6]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_char(new_input1[0]);
+        check_int(new_input1[1]);
+        check_string(new_input1[2]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_char(new_input2[0]);
+        check_int(new_input2[1]);
+        check_string(new_input2[2]);
+        std::vector<var> new_input3 = J.input_gen(3);
+        check_char(new_input3[0]);
+        check_int(new_input3[1]);
+        check_string(new_input3[2]);
+        std::vector<var> new_input4 = J.input_gen(4);
+        check_char(new_input4[0]);
+        check_int(new_input4[1]);
+        check_string(new_input4[2]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+        EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
+        EXPECT_FALSE(cmp(new_input1[2],new_input4[2]));
+    }
+    TEST_F(TestInputGen,test07){
+        JudgeModule J(exe1,exe2,line[7]);
+        std::vector<var> new_input1 = J.input_gen(1);
+        check_string(new_input1[0]);
+        check_char(new_input1[1]);
+        check_int(new_input1[2]);
+        std::vector<var> new_input2 = J.input_gen(2);
+        check_string(new_input2[0]);
+        check_char(new_input2[1]);
+        check_int(new_input2[2]);
+        std::vector<var> new_input3 = J.input_gen(3);
+        check_string(new_input3[0]);
+        check_char(new_input3[1]);
+        check_int(new_input3[2]);
+        std::vector<var> new_input4 = J.input_gen(4);
+        check_string(new_input4[0]);
+        check_char(new_input4[1]);
+        check_int(new_input4[2]);
+        EXPECT_FALSE(cmp(new_input1[0],new_input2[0]));
+        EXPECT_FALSE(cmp(new_input1[1],new_input3[1]));
+        EXPECT_FALSE(cmp(new_input1[2],new_input4[2]));
     }
     TEST(TestJudge,test1){
         std::filesystem::path test_dir("JudgeModuleTest/test1");
@@ -218,6 +234,20 @@ namespace{
         EXPECT_TRUE(cont.compare());
         EXPECT_FALSE(cont1_sum.compare());
         EXPECT_FALSE(cont2_sum.compare());
+    }
+    TEST(TestJudge,test4){
+        std::filesystem::path test_dir("JudgeModuleTest/test4");
+        std::string format;
+        std::ifstream f("JudgeModuleTest/test4/stdin_format.txt");
+        std::getline(f,format);
+        compile(test_dir);
+        std::string count_s = "JudgeModuleTest/test4/count_s.exe",count_S = "JudgeModuleTest/test4/count_S.exe",count_sS = "JudgeModuleTest/test4/count_sS.exe";
+        JudgeModule counts_countS(count_s,count_S,format);
+        JudgeModule counts_countsS(count_s,count_sS,format);
+        JudgeModule countS_countsS(count_S,count_sS,format);
+        EXPECT_FALSE(counts_countS.compare());
+        EXPECT_FALSE(countS_countsS.compare());
+        EXPECT_FALSE(counts_countsS.compare());
     }
 }
 int main(int argc, char **argv) {
